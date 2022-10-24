@@ -1,0 +1,28 @@
+service: serverless-example
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: sa-east-1
+  profile: default
+  stage: dev
+
+functions:
+  main:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /graphql
+      # - http:
+      #     method: ANY
+      #     path: '{proxy+}'
+      - http:
+          method: POST
+          path: /auth/login
+      - http:
+          method: GET
+          path: /profile
