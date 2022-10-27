@@ -9,13 +9,21 @@ export class AppController {
 
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
-  async login(@Request() req:any) {
-    return this.authService.login(req.user);
+  async login(@Request() req: any) {
+    return {
+      token: (await this.authService.login(req.user)).access_token,
+      fullName: '53200 - Posto Premmia',
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req:any) {
+  getProfile(@Request() req: any) {
+    return req.user;
+  }
+
+  @Get('free/profile')
+  getFreeProfile(@Request() req: any) {
     return req.user;
   }
 }

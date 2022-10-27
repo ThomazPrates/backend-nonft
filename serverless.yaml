@@ -15,12 +15,6 @@ functions:
     handler: dist/lambda.handler
     events:
       - http:
-          method: ANY
-          path: /graphql
-      # - http:
-      #     method: ANY
-      #     path: '{proxy+}'
-      - http:
           method: POST
           path: /auth/login
       - http:

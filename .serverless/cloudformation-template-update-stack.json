@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/serverless-example/dev/1666623353841-2022-10-24T14:55:53.841Z/serverless-example.zip"
+          "S3Key": "serverless/serverless-example/dev/1666811423450-2022-10-26T19:10:23.450Z/serverless-example.zip"
         },
         "Handler": "dist/lambda.handler",
         "Runtime": "nodejs16.x",
@@ -179,14 +179,14 @@
         "MainLogGroup"
       ]
     },
-    "MainLambdaVersionAjwt4OmV5EvqzVpYhBJp8YIaJiWEZ7rAnhPBLfTHs": {
+    "MainLambdaVersionKtaXfgPT2xWUCGiRNzDNVQTj8pNLAWm4MFb0ZfZZc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "MainLambdaFunction"
         },
-        "CodeSha256": "/VQc3q3Tn4kGKZxuZsNLNy/HE/xci8/cOeSMI6q0qJw="
+        "CodeSha256": "GH3cVeEerSWNr1BVw3opBEeBiy3M3vylIZxmtW0pRoo="
       }
     },
     "ApiGatewayRestApi": {
@@ -199,36 +199,6 @@
           ]
         },
         "Policy": ""
-      }
-    },
-    "ApiGatewayResourceGraphql": {
-      "Type": "AWS::ApiGateway::Resource",
-      "Properties": {
-        "ParentId": {
-          "Fn::GetAtt": [
-            "ApiGatewayRestApi",
-            "RootResourceId"
-          ]
-        },
-        "PathPart": "graphql",
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        }
-      }
-    },
-    "ApiGatewayResourceProxyVar": {
-      "Type": "AWS::ApiGateway::Resource",
-      "Properties": {
-        "ParentId": {
-          "Fn::GetAtt": [
-            "ApiGatewayRestApi",
-            "RootResourceId"
-          ]
-        },
-        "PathPart": "{proxy+}",
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        }
       }
     },
     "ApiGatewayResourceAuth": {
@@ -272,98 +242,6 @@
           "Ref": "ApiGatewayRestApi"
         }
       }
-    },
-    "ApiGatewayMethodGraphqlAny": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "HttpMethod": "ANY",
-        "RequestParameters": {},
-        "ResourceId": {
-          "Ref": "ApiGatewayResourceGraphql"
-        },
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        },
-        "ApiKeyRequired": false,
-        "AuthorizationType": "NONE",
-        "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "MainLambdaFunction",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
-        },
-        "MethodResponses": []
-      },
-      "DependsOn": [
-        "MainLambdaPermissionApiGateway"
-      ]
-    },
-    "ApiGatewayMethodProxyVarAny": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "HttpMethod": "ANY",
-        "RequestParameters": {},
-        "ResourceId": {
-          "Ref": "ApiGatewayResourceProxyVar"
-        },
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        },
-        "ApiKeyRequired": false,
-        "AuthorizationType": "NONE",
-        "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "MainLambdaFunction",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
-        },
-        "MethodResponses": []
-      },
-      "DependsOn": [
-        "MainLambdaPermissionApiGateway"
-      ]
     },
     "ApiGatewayMethodAuthLoginPost": {
       "Type": "AWS::ApiGateway::Method",
@@ -457,7 +335,7 @@
         "MainLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1666623286785": {
+    "ApiGatewayDeployment1666811387938": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -466,8 +344,6 @@
         "StageName": "dev"
       },
       "DependsOn": [
-        "ApiGatewayMethodGraphqlAny",
-        "ApiGatewayMethodProxyVarAny",
         "ApiGatewayMethodAuthLoginPost",
         "ApiGatewayMethodProfileGet"
       ]
@@ -522,7 +398,7 @@
     "MainLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "MainLambdaVersionAjwt4OmV5EvqzVpYhBJp8YIaJiWEZ7rAnhPBLfTHs"
+        "Ref": "MainLambdaVersionKtaXfgPT2xWUCGiRNzDNVQTj8pNLAWm4MFb0ZfZZc"
       },
       "Export": {
         "Name": "sls-serverless-example-dev-MainLambdaFunctionQualifiedArn"

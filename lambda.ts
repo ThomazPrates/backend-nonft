@@ -17,7 +17,6 @@ async function bootstrap() {
     );
 
     nestApp.enableCors();
-
     await nestApp.init();
 
     cachedServer = serverlessExpress({ app: expressApp });
